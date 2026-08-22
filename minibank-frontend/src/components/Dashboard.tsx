@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 import PromoCarousel from "./PromoCarousel";
 import QuickActions from "./QuickActions";
+import RecentActivity from "./RecentActivity";
 
 interface Account {
   accountId: string;
@@ -120,6 +121,7 @@ function Dashboard() {
       <Navbar ownerName={account.ownerName} />
       <PromoCarousel />
       <QuickActions onTransferClick={() => setShowForm(true)} />
+      <RecentActivity />
       <section className="balance-card">
         <p className="label">
           {account.ownerName ? `Welcome, ${account.ownerName}` : "Current Balance"}
