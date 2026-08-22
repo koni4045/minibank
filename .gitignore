@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+*/node_modules/
+
+# Build output
+dist/
+build/
+*/dist/
+*/build/
+
+# Environment/secrets
+.env
+.env.local
+*.pem
+
+# Lambda deployment artifacts
+*.zip
+backend/**/bcrypt*
+backend/**/jwt/
+backend/**/*.dist-info/
+backend/**/response.json
+
+# OS files
+.DS_Store
+
+# Editor
+.vscode/
