@@ -22,7 +22,7 @@ const ACCOUNTS_LIST_URL = "https://j432m5qthj.execute-api.us-east-1.amazonaws.co
 const TRANSFER_URL = "https://j432m5qthj.execute-api.us-east-1.amazonaws.com/dev/transfer";
 
 function Dashboard() {
-  const { accountId, logout } = useAuth();
+  const { accountId, token, logout } = useAuth();
   const navigate = useNavigate();
 
   const [account, setAccount] = useState<Account | null>(null);
@@ -38,7 +38,9 @@ function Dashboard() {
 
   const fetchAccount = () => {
     setLoading(true);
-    fetch(`${ACCOUNT_URL}?accountId=${accountId}`)
+    fetch(`${ACCOUNT_URL}?accountId=${accountId}`, {
+        headers: { "Authorization": `Bearer ${token}` },
+    })
       .then((res) => {
         if (!res.ok) throw new Error("Failed to fetch account");
         return res.json();
@@ -72,10 +74,14 @@ function Dashboard() {
     setSubmitting(true);
     setTransferStatus(null);
 
+    
     try {
       const res = await fetch(TRANSFER_URL, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+        },
         body: JSON.stringify({
           fromAccountId: accountId,
           toAccountId,
